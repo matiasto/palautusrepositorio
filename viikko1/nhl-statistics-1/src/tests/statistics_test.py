@@ -1,6 +1,8 @@
 import unittest
 from statistics import Statistics
 from player import Player
+from sort_by import SortBy
+
 
 class PlayerReaderStub:
     def get_players(self):
@@ -35,10 +37,30 @@ class TestStatistics(unittest.TestCase):
         self.assertEqual(3, len(players))
 
     def test_top(self):
-        players = self.statistics.top(1)
+        players = self.statistics.top(2)
         self.assertEqual(2, len(players))
         self.assertEqual("Gretzky", players[0].name)
         self.assertEqual("Lemieux", players[1].name)
 
-    
+    def test_top_with_sort_by_goals(self):
+        players = self.statistics.top(2, SortBy.GOALS)
+        self.assertEqual(2, len(players))
+        self.assertEqual("Lemieux", players[0].name)
+        self.assertEqual("Yzerman", players[1].name)
+
+    def test_top_with_sort_by_assists(self):
+        players = self.statistics.top(2, SortBy.ASSISTS)
+        self.assertEqual(2, len(players))
+        self.assertEqual("Gretzky", players[0].name)
+        self.assertEqual("Yzerman", players[1].name)
+
+    def test_top_with_sort_by_points(self):
+        players = self.statistics.top(2, SortBy.POINTS)
+        self.assertEqual(2, len(players))
+        self.assertEqual("Gretzky", players[0].name)
+        self.assertEqual("Lemieux", players[1].name)
+
+    def test_top_with_sort_by_raises_value_error_if_unknown_sort_by(self):
+        with self.assertRaises(TypeError):
+            self.statistics.top(2, "unknown")
     
