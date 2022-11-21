@@ -27,7 +27,7 @@ Login Should Fail With Message
     Page Should Contain  ${message}
 
 Submit Credentials
-    Click Button  Login
+    Click Button  login
 
 Set Username
     [Arguments]  ${username}

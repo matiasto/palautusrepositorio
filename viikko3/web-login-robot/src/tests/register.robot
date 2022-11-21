@@ -1,0 +1,13 @@
+
+*** Test Cases ***
+    Register With Valid Username And Password
+    # ...
+    
+    Register With Too Short Username And Valid Password
+    # ...
+    
+    Register With Valid Username And Too Short Password
+    # ...
+    
+    Register With Nonmatching Password And Password Confirmation
+    # ...
