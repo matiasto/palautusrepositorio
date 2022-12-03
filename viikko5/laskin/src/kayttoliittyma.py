@@ -54,23 +54,22 @@ class Kayttoliittyma:
         self._nollaus_painike.grid(row=2, column=2)
         self._kumoa_painike.grid(row=2, column=3)
 
-    def _suorita_komento(self, komento):
-        arvo = 0
-
+    def _lue_syote(self):
         try:
-            arvo = int(self._syote_kentta.get())
+            return int(self._syote_kentta.get())
         except Exception:
-            pass
+            return 0
+
+    def _suorita_komento(self, komento):
+        arvo = self._lue_syote()
 
         komennot = {
             Komento.SUMMA: self._sovellus.plus,
             Komento.EROTUS: self._sovellus.miinus,
             Komento.NOLLAUS: self._sovellus.nollaa,
+            Komento.KUMOA: self._sovellus.kumoa
         }
-        if komento == Komento.KUMOA:
-            pass
-        else:
-            komennot[komento](arvo)
+        komennot[komento](arvo)
 
         self._kumoa_painike["state"] = constants.NORMAL
 
