@@ -70,3 +70,28 @@ class Or:
                 return True
 
         return False
+
+
+class QueryBuilder:
+    def __init__(self):
+        self._matchers = []
+
+    def playsIn(self, team):
+        self._matchers.append(PlaysIn(team))
+        return self
+
+    def hasAtLeast(self, value, attr):
+        self._matchers.append(HasAtLeast(value, attr))
+        return self
+
+    def hasFewerThan(self, value, attr):
+        self._matchers.append(HasFewerThan(value, attr))
+        return self
+
+    def build(self):
+        if len(self._matchers) == 0:
+            return All()
+        elif len(self._matchers) == 1:
+            return self._matchers[0]
+        else:
+            return And(*self._matchers)
